@@ -1,0 +1,30 @@
+language: java
+jdk: oraclejdk8
+install: true
+
+cache:
+  directories:
+  - $HOME/.m2
+
+before_install:
+  - ./scripts/npm-settings.sh
+  - ./scripts/maven-settings.sh
+
+before_deploy:
+  - export PATH=$PATH:$HOME/.local/bin
+
+script:
+  - mvn -s data/settings.xml package
+
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: mvn install deploy -DciBuildNumber=${TRAVIS_BUILD_NUMBER}
+    on:
+      branch: master
+
+  - provider: script
+    skip_cleanup: true
+    script: mvn install deploy -DciBuildNumber=${TRAVIS_BUILD_NUMBER}
+    on:
+      tags: true
