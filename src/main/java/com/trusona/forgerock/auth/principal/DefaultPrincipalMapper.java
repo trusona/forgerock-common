@@ -52,7 +52,7 @@ public class DefaultPrincipalMapper implements PrincipalMapper {
       }
     }
 
-    AuthPrincipal authPrincipal = new AuthPrincipal(identity != null ? identity.getUniversalId() : subjects.get(0));
+    AuthPrincipal authPrincipal = new AuthPrincipal(identity != null ? identity.getName() : subjects.get(0));
     return Optional.of(authPrincipal);
   }
 
