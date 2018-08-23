@@ -33,7 +33,13 @@
   </developers>
   <contributors/>
 
-   <properties>
+  <scm>
+    <developerConnection>
+      scm:git:ssh://github.com/trusona/forgerock-common
+    </developerConnection>
+  </scm>
+
+  <properties>
     <trusona.sdk.version>3.3.0</trusona.sdk.version>
     <commons-lang3.version>3.7</commons-lang3.version>
     <forgerock.version>5.5.1</forgerock.version>
@@ -44,6 +50,14 @@
   <build>
     <defaultGoal>clean test</defaultGoal>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.5.3</version>
+        <configuration>
+          <tagNameFormat>v@{project.version}</tagNameFormat>
+        </configuration>
+      </plugin>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.7.0</version>
