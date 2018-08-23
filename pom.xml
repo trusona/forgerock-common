@@ -35,7 +35,7 @@
 
   <scm>
     <developerConnection>
-      scm:git:ssh://github.com/trusona/forgerock-common
+      scm:git:ssh://git@github.com/trusona/forgerock-common.git
     </developerConnection>
   </scm>
 
