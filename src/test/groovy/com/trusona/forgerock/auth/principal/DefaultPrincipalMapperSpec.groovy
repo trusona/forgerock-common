@@ -26,12 +26,12 @@ class DefaultPrincipalMapperSpec extends Specification {
     1 * _.expiresAt >> new Date(System.currentTimeMillis() + 3600000)
     1 * _.userIdentifier >> "jones"
     1 * _.findForgeRockUser("jones") >> Mock(AMIdentity)
-    1 * _.name >> "jones-uid"
+    1 * _.name >> "uid=r@trusona.com,ou=people,dc=openam,dc=forgerock,dc=org"
     0 * _
 
     and:
     res.isPresent()
-    res.get().name == "jones-uid"
+    res.get().name == "r@trusona.com"
   }
 
   def "mapPrincipal should return the mapped APP principal if the user identifier is from the Trusona App"() {
@@ -45,12 +45,12 @@ class DefaultPrincipalMapperSpec extends Specification {
     1 * _.getUser("jones") >> Optional.of(Mock(UserResponse))
     1 * _.emails >> ["jones@example.net", "bob@africa.com"]
     1 * _.findForgeRockUser("jones@example.net") >> Mock(AMIdentity)
-    1 * _.name >> "jones-uid"
+    1 * _.name >> "uid=r@trusona.com,ou=people,dc=openam,dc=forgerock,dc=org"
     0 * _
 
     and:
     res.isPresent()
-    res.get().name == "jones-uid"
+    res.get().name == "r@trusona.com"
   }
 
   def "mapPrincipal should return an empty optional when the trusonafication is not successful"() {
@@ -106,7 +106,7 @@ class DefaultPrincipalMapperSpec extends Specification {
     1 * _.expiresAt >> new Date(System.currentTimeMillis() - (30 * 1000))
     1 * _.userIdentifier >> "jones"
     1 * _.findForgeRockUser("jones") >> Mock(AMIdentity)
-    1 * _.name >> "jones-uid"
+    1 * _.name >> "uid=r@trusona.com,ou=people,dc=openam,dc=forgerock,dc=org"
     0 * _
 
     and:
@@ -143,11 +143,11 @@ class DefaultPrincipalMapperSpec extends Specification {
     (1.._) * _.emails >> ["jones@example.net", "bob@africa.com"]
     1 * _.findForgeRockUser('jones@example.net') >> null
     1 * _.findForgeRockUser('bob@africa.com') >> Mock(AMIdentity)
-    1 * _.name >> "909090"
+    1 * _.name >> "uid=r@trusona.com,ou=people,dc=openam,dc=forgerock,dc=org"
     0 * _
 
     and:
-    result.get().name == "909090"
+    result.get().name == "r@trusona.com"
   }
 
   def "mapPrincipal should return an empty principal when the Trusona user is not found"() {
