@@ -6,9 +6,13 @@ import com.trusona.client.TrusonaClient;
 import com.trusona.client.dto.response.UserResponse;
 import com.trusona.forgerock.auth.TrusonaDebug;
 import com.trusona.sdk.resources.dto.TrusonaficationResult;
-
 import java.security.Principal;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
 
 public class DefaultPrincipalMapper implements PrincipalMapper {
   private static final String TRUSONA_APP_PREFIX = "trusonaId:";
@@ -52,8 +56,16 @@ public class DefaultPrincipalMapper implements PrincipalMapper {
       }
     }
 
-    AuthPrincipal authPrincipal = new AuthPrincipal(identity != null ? identity.getName() : subjects.get(0));
+    AuthPrincipal authPrincipal = new AuthPrincipal(identity != null ? getUid(identity.getName()) : subjects.get(0));
     return Optional.of(authPrincipal);
+  }
+
+  private String getUid(String identityName) {
+    return Arrays.stream(identityName.split(","))
+      .filter(identityNamePair -> identityNamePair.startsWith("uid="))
+      .map(uidPair -> uidPair.replace("uid=", ""))
+      .findFirst()
+      .orElse(identityName);
   }
 
   private List<String> getSubjects(String userIdentifier) {
