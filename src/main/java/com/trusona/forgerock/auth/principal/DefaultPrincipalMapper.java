@@ -17,6 +17,8 @@ import java.util.stream.Stream;
 
 public class DefaultPrincipalMapper implements PrincipalMapper {
   private static final String TRUSONA_APP_PREFIX = "trusonaId:";
+  private static final String UID = "uid";
+  private static final String ID = "id";
 
   private final TrusonaClient trusonaClient;
   private final IdentityFinder identityFinder;
@@ -62,8 +64,8 @@ public class DefaultPrincipalMapper implements PrincipalMapper {
     if (identity != null) {
       String name = identity.getName();
       Stream<Optional<String>> stream = Stream.<Optional<String>>builder()
-        .add(getIdentityField(name, "uid"))
-        .add(getIdentityField(name, "id"))
+        .add(getIdentityField(name, UID))
+        .add(getIdentityField(name, ID))
         .build();
 
       String identityName = stream.filter(Optional::isPresent)
