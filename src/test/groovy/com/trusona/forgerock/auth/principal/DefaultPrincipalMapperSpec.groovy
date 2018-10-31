@@ -176,4 +176,23 @@ class DefaultPrincipalMapperSpec extends Specification {
     res.isPresent()
     res.get().name == "jones"
   }
+
+  def "mapPrincipal should parse out the id field if it exists and the uid does not."() {
+    when:
+    def result = sut.mapPrincipal(Mock(TrusonaficationResult))
+
+    then:
+    1 * _.successful >> true
+    1 * _.expiresAt >> new Date(System.currentTimeMillis() + 3600000)
+    1 * _.userIdentifier >> "trusonaId:0123456789"
+    1 * _.getUser("0123456789") >> [(Mock(UserResponse))]
+    (1.._) * _.emails >> ["jones@example.net", "bob@africa.com"]
+    1 * _.findForgeRockUser('jones@example.net') >> null
+    1 * _.findForgeRockUser('bob@africa.com') >> Mock(AMIdentity)
+    1 * _.name >> "id=jones-id,ou=people,dc=openam,dc=forgerock,dc=org"
+    0 * _
+
+    and:
+    result.get().name == "jones-id"
+  }
 }
