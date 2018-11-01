@@ -13,9 +13,12 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class DefaultPrincipalMapper implements PrincipalMapper {
   private static final String TRUSONA_APP_PREFIX = "trusonaId:";
+  private static final String UID = "uid";
+  private static final String ID = "id";
 
   private final TrusonaClient trusonaClient;
   private final IdentityFinder identityFinder;
@@ -56,16 +59,34 @@ public class DefaultPrincipalMapper implements PrincipalMapper {
       }
     }
 
-    AuthPrincipal authPrincipal = new AuthPrincipal(identity != null ? getUid(identity.getName()) : subjects.get(0));
+    AuthPrincipal authPrincipal;
+
+    if (identity != null) {
+      String name = identity.getName();
+      Stream<Optional<String>> stream = Stream.<Optional<String>>builder()
+        .add(getIdentityField(name, UID))
+        .add(getIdentityField(name, ID))
+        .build();
+
+      String identityName = stream.filter(Optional::isPresent)
+        .map(Optional::get)
+        .findFirst()
+        .orElse(name);
+
+      authPrincipal = new AuthPrincipal(identityName);
+    } else {
+      authPrincipal = new AuthPrincipal(subjects.get(0));
+    }
+
     return Optional.of(authPrincipal);
   }
 
-  private String getUid(String identityName) {
+  private Optional<String> getIdentityField(String identityName, String key) {
+    String idField = key + "=";
     return Arrays.stream(identityName.split(","))
-      .filter(identityNamePair -> identityNamePair.startsWith("uid="))
-      .map(uidPair -> uidPair.replace("uid=", ""))
-      .findFirst()
-      .orElse(identityName);
+      .filter(identityNamePair -> identityNamePair.startsWith(idField))
+      .map(uidPair -> uidPair.replace(idField, ""))
+      .findFirst();
   }
 
   private List<String> getSubjects(String userIdentifier) {
