@@ -1,25 +1,13 @@
-allprojects {
-  gradle.projectsEvaluated {
-    tasks.withType(JavaCompile) {
-      options.compilerArgs << "-Xlint:all,-processing"
-    }
-    tasks.withType(GroovyCompile) {
-      options.compilerArgs << "-Xlint:all,-processing"
-    }
-  }
 
-  tasks.matching { it instanceof Test }.all {
-    testLogging.events = ["failed", "passed", "skipped", "standardOut", "standardError"]
-    testLogging.showStandardStreams = true
-  }
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
-  ext {
-    commonsLang3Version = "3.8.1"
-    forgerockVersion = "5.5.1"
-    retrofit2Version = "2.5.0"
-    jacksonVersion = "2.9.7"
-    okHttpVersion = "3.12.0"
-  }
+ext {
+  commonsLang3Version = "3.8.1"
+  forgerockVersion = "5.5.1"
+  retrofit2Version = "2.5.0"
+  jacksonVersion = "2.9.7"
+  okHttpVersion = "3.12.0"
 }
 
 repositories {
@@ -35,25 +23,29 @@ repositories {
   }
   maven {
     credentials {
-      username = FORGEROCK_REPO_USERNAME
-      password = FORGEROCK_REPO_PASSWORD
+      username = FORGEROCK_MAVEN_USERNAME
+      password = FORGEROCK_MAVEN_PASSWORD
     }
     url "https://maven.forgerock.org/repo/openam-dependencies" 
   }
   maven { 
     credentials {
-      username = FORGEROCK_REPO_USERNAME
-      password = FORGEROCK_REPO_PASSWORD
+      username = FORGEROCK_MAVEN_USERNAME
+      password = FORGEROCK_MAVEN_PASSWORD
     }
     url "https://maven.forgerock.org/repo/private-releases" 
   }
   maven {
     credentials {
-      username = FORGEROCK_REPO_USERNAME
-      password = FORGEROCK_REPO_PASSWORD
+      username = FORGEROCK_MAVEN_USERNAME
+      password = FORGEROCK_MAVEN_PASSWORD
     }
    url "https://maven.forgerock.org/repo/releases" 
   }
+}
+
+compileJava {
+  options.compilerArgs << "-Xlint:all"
 }
 
 test {
@@ -92,4 +84,19 @@ configurations.all {
     force set.toArray()
     forcedModules = set
   }
+}
+
+task npm_install(type: Exec) {
+  executable "npm"
+  args "install"
+}
+
+task npm_run_build(type: Exec) {
+  executable "npm"
+  args "run", "build"
+}
+
+task copy_dist_resource(type: Copy) {
+  from "./dist"
+  into "./build/resources/main"
 }
