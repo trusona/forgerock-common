@@ -3,6 +3,7 @@ buildscript {
     google()
     mavenCentral()
     jcenter()
+    mavenLocal()
   }
 
   dependencies {
@@ -49,4 +50,8 @@ assemble {
 
 build {
   dependsOn assemble
+}
+
+task version {
+  println project.version
 }

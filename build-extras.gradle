@@ -14,6 +14,8 @@ repositories {
   google()
   mavenCentral()
   jcenter()
+  mavenLocal()
+
   maven { 
     credentials {
       username = ARTIFACTORY_USERNAME
