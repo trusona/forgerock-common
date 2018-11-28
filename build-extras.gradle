@@ -86,6 +86,11 @@ configurations.all {
   }
 }
 
+task copy_dist_resource(type: Copy) {
+  from "./dist"
+  into "./build/resources/main"
+}
+
 task npm_install(type: Exec) {
   executable "npm"
   args "install"
@@ -94,9 +99,6 @@ task npm_install(type: Exec) {
 task npm_run_build(type: Exec) {
   executable "npm"
   args "run", "build"
-}
 
-task copy_dist_resource(type: Copy) {
-  from "./dist"
-  into "./build/resources/main"
+  finalizedBy copy_dist_resource
 }

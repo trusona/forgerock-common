@@ -43,13 +43,10 @@ dependencies {
 }
 
 assemble {
-  dependsOn {
-    npm_install
-  }
-  dependsOn {
-    npm_run_build
-  }
-  dependsOn {
-    copy_dist_resource
-  }
+  dependsOn npm_install
+  dependsOn npm_run_build
+}
+
+build {
+  dependsOn assemble
 }
