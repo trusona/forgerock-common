@@ -31,3 +31,12 @@ cat <<EOF > ~/.npmrc
 //trusona.jfrog.io/trusona/api/npm/:always-auth=true
 EOF
 ```
+
+
+## Building the project
+
+1. Run the command:
+
+```bash
+./gradlew clean build
+```
