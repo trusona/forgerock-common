@@ -4,27 +4,28 @@ install: true
 
 cache:
   directories:
+  - $HOME/.gradle
   - $HOME/.m2
 
 before_install:
   - ./scripts/npm-settings.sh
-  - ./scripts/maven-settings.sh
+  - ./scripts/ci-gradle-env.sh
 
 before_deploy:
   - export PATH=$PATH:$HOME/.local/bin
 
 script:
-  - mvn -s data/settings.xml package
+  - ./gradlew build
 
 deploy:
   - provider: script
     skip_cleanup: true
-    script: mvn install deploy -DciBuildNumber=${TRAVIS_BUILD_NUMBER}
+    script: ./gradlew artifactoryPublish
     on:
       branch: master
 
   - provider: script
     skip_cleanup: true
-    script: mvn install deploy -DciBuildNumber=${TRAVIS_BUILD_NUMBER}
+    script: ./gradlew artifactoryPublish
     on:
       tags: true
