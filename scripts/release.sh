@@ -45,10 +45,10 @@ read RESPONSE
 if [[ $RESPONSE == y ]] || [[ $RESPONSE == Y ]]; then
   git checkout -q -b release-${RELEASE_VERSION}
 
-  sed -e s/'version "${CURRENT_VERSION}"'/'version "${RELEASE_VERSION}"'/g -i build.gradle
+  sed -e s/${CURRENT_VERSION}/${RELEASE_VERSION}/g -i build.gradle
 
   git commit -m "release version ${RELEASE_VERSION}" $c_sign build.gradle
-  git tag $t_sign -a release-${RELEASE_VERSION} -m "release version ${RELEASE_VERSION}"
+  git tag $t_sign -a v${RELEASE_VERSION} -m "release version ${RELEASE_VERSION}"
 
   git push -q --set-upstream origin release-${RELEASE_VERSION}
   git push -q --tags -f
@@ -56,7 +56,7 @@ if [[ $RESPONSE == y ]] || [[ $RESPONSE == Y ]]; then
   git checkout -q master
   NEXT_VERSION="`./bin/semver-tool bump patch $RELEASE_VERSION`-SNAPSHOT"
 
-  sed -e s/'version "${CURRENT_VERSION}"'/'version "${NEXT_VERSION}"'/g -i build.gradle
+  sed -e s/${CURRENT_VERSION}/${NEXT_VERSION}/g -i build.gradle
 
   git commit -m "Bumping to next snapshot version $NEXT_VERSION" $c_sign build.gradle
   git push -q --set-upstream origin master
