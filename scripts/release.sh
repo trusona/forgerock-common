@@ -4,7 +4,7 @@
 ##
 ## Run with "./scripts/release.sh"
 ##
-## OR if you've enabled git signing, run with "./scripts/release.sh --sign"
+## OR if you have (correctly!) enabled git signing, run with "./scripts/release.sh --sign"
 ##
 
 set -e
