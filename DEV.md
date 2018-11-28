@@ -16,7 +16,7 @@ FORGEROCK_MAVEN_PASSWORD=<YOUR_FORGEROCK_MAVEN_PASSWORD>
 CONTEXT_REPO_ROOT=https://trusona.jfrog.io/trusona/
 ```
 
-3. Replace the text in `<...>` with the relevant information.
+3. Replace the text `<...>` with the relevant information.
 
 ## Setting up NPM
 
