@@ -1,0 +1,95 @@
+allprojects {
+  gradle.projectsEvaluated {
+    tasks.withType(JavaCompile) {
+      options.compilerArgs << "-Xlint:all,-processing"
+    }
+    tasks.withType(GroovyCompile) {
+      options.compilerArgs << "-Xlint:all,-processing"
+    }
+  }
+
+  tasks.matching { it instanceof Test }.all {
+    testLogging.events = ["failed", "passed", "skipped", "standardOut", "standardError"]
+    testLogging.showStandardStreams = true
+  }
+
+  ext {
+    commonsLang3Version = "3.8.1"
+    forgerockVersion = "5.5.1"
+    retrofit2Version = "2.5.0"
+    jacksonVersion = "2.9.7"
+    okHttpVersion = "3.12.0"
+  }
+}
+
+repositories {
+  google()
+  mavenCentral()
+  jcenter()
+  maven { 
+    credentials {
+      username = ARTIFACTORY_USERNAME
+      password = ARTIFACTORY_PASSWORD
+    }
+    url "https://trusona.jfrog.io/trusona/sdk-releases" 
+  }
+  maven {
+    credentials {
+      username = FORGEROCK_REPO_USERNAME
+      password = FORGEROCK_REPO_PASSWORD
+    }
+    url "https://maven.forgerock.org/repo/openam-dependencies" 
+  }
+  maven { 
+    credentials {
+      username = FORGEROCK_REPO_USERNAME
+      password = FORGEROCK_REPO_PASSWORD
+    }
+    url "https://maven.forgerock.org/repo/private-releases" 
+  }
+  maven {
+    credentials {
+      username = FORGEROCK_REPO_USERNAME
+      password = FORGEROCK_REPO_PASSWORD
+    }
+   url "https://maven.forgerock.org/repo/releases" 
+  }
+}
+
+test {
+  testLogging {
+    showStandardStreams = true
+    events "PASSED", "FAILED", "SKIPPED"
+  }
+
+  finalizedBy jacocoTestReport
+}
+
+configurations.all {
+  resolutionStrategy {
+    failOnVersionConflict()
+
+    def set = [] as Set
+
+    set << "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}"
+    set << "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+    set << "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
+
+    set << "org.apache.commons:commons-lang3:${commonsLang3Version}"
+    set << "com.squareup.retrofit2:retrofit:${retrofit2Version}"
+    set << "com.squareup.okhttp3:okhttp:${okHttpVersion}"
+
+    set << "org.forgerock.commons.guava:forgerock-guava-hash:18.+"
+    set << "commons-collections:commons-collections:3.+"
+    set << "org.forgerock.commons:forgerock-util:22.+"
+    set << "commons-fileupload:commons-fileupload:1.+"
+    set << "commons-logging:commons-logging:1.+"
+    set << "commons-codec:commons-codec:1.+"
+    set << "commons-lang:commons-lang:2.+"
+    set << "commons-io:commons-io:2.+"
+    set << "org.slf4j:slf4j-api:1.7.+"
+
+    force set.toArray()
+    forcedModules = set
+  }
+}
