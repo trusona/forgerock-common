@@ -1,70 +1,22 @@
-## Setting up Maven
+## Setting up Gradle
 
-### Setting up Maven for Forgerock
-
-Download settings.xml file from ForgeRock backstage after you've logged in `http://maven.forgerock.org/repo/private-releases/settings.xml` and put it in `~/.m2/settings.xml`
-
-### Setting up Maven for Trusona
-
-1. Create a master password in Maven:
+1. If it does not already exist, create a `.gradle` directory in your home directory like this:
 
 ```bash
-$ mvn --encrypt-master-password $master_password
-{hfVXK9Wxn+kH0/fzpwehZboNEgLI=}
+mkdir -p ~/.gradle
 ```
 
-2. Create `~/.m2/settings-security.xml` with the following:
+2. Create a file named `gradle.properties` at `~/.gradle/gradle.properties` with the following content:
 
-```xml
-<settingsSecurity>
-  <master>{hfVXK9Wxn+kH0/fzpwehZboNEgLI=}</master>
-</settingsSecurity>
+```text
+ARTIFACTORY_USERNAME=<YOUR_ARTIFACTORY_USERNAME>
+ARTIFACTORY_PASSWORD=<YOUR_ARTIFACTORY_USERNAME>
+FORGEROCK_MAVEN_USERNAME=<YOUR_FORGEROCK_MAVEN_USERNAME>
+FORGEROCK_MAVEN_PASSWORD=<YOUR_FORGEROCK_MAVEN_PASSWORD>
+CONTEXT_REPO_ROOT=https://trusona.jfrog.io/trusona/
 ```
 
-3. Encrypt your Artifactory password:
-
-```bash
-$ mvn --encrypt-password $artifactory_password
-{XuPqXqg2xkgH8a1yPGGznvpEbQuPgaJvg9wXPE2Zytsi8xJbim5KoK3Juk7SULpA==}
-```
-
-4. Add to `~/.m2/settings.xml` with Artifactory information:
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd" xmlns="http://maven.apache.org/SETTINGS/1.1.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <servers>
-    <server>
-      <username>$artifactory_username</username>
-      <password>{XuPqXqg2xkgH8a1yPGGznvpEbQuPgaJvg9wXPE2Zytsi8xJbim5KoK3Juk7SULpA==}</password>
-      <id>sdk-snapshots-local</id>
-    </server>
-  </servers>
-  <profiles>
-    <profile>
-      <id>trusona</id>
-      <repositories>
-        <repository>
-          <id>sdk-snapshots-local</id>
-          <url>https://trusona.jfrog.io/trusona/sdk-snapshots</url>
-            <releases>
-                <enabled>true</enabled>
-                <checksumPolicy>fail</checksumPolicy>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-                <checksumPolicy>warn</checksumPolicy>
-            </snapshots>
-        </repository>
-      </repositories>
-    </profile>
-  </profiles>
-  <activeProfiles>
-    <activeProfile>trusona</activeProfile>
-  </activeProfiles>
-</settings>
-```
+3. Replace the text in `<...>` with the relevant information.
 
 ## Setting up NPM
 
