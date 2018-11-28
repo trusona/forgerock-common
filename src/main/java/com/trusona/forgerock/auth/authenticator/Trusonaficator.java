@@ -1,32 +1,43 @@
 package com.trusona.forgerock.auth.authenticator;
 
+import static com.trusona.sdk.resources.dto.TrusonaficationStatus.IN_PROGRESS;
+
 import com.sun.identity.authentication.spi.AuthLoginException;
 import com.trusona.forgerock.auth.TrusonaDebug;
 import com.trusona.forgerock.auth.callback.TrusonaCallback;
 import com.trusona.sdk.resources.TrusonaApi;
 import com.trusona.sdk.resources.dto.Trusonafication;
+import com.trusona.sdk.resources.dto.Trusonafication.IdentifierStep;
 import com.trusona.sdk.resources.dto.TrusonaficationResult;
 import com.trusona.sdk.resources.exception.TrusonaException;
-
 import java.util.UUID;
 
-import static com.trusona.sdk.resources.dto.TrusonaficationStatus.IN_PROGRESS;
-
 public final class Trusonaficator implements Authenticator {
+
+  public enum AuthenticationLevel {
+    ESSENTIAL,
+    EXECUTIVE
+  }
 
   private final TrusonaApi trusona;
   private final String action;
   private final String resource;
+  private final AuthenticationLevel authenticationLevel;
 
   public Trusonaficator(TrusonaApi trusona, String action, String resource) {
+    this(trusona, action, resource, AuthenticationLevel.ESSENTIAL);
+  }
+
+  public Trusonaficator(TrusonaApi trusona, String action, String resource, AuthenticationLevel authenticationLevel) {
     this.trusona = trusona;
     this.action = action;
     this.resource = resource;
+    this.authenticationLevel = authenticationLevel;
   }
 
   @Override
   public UUID createTrusonafication(TrusonaCallback callback) throws AuthLoginException {
-    Trusonafication trusonafication = callback.fillIdentifier(Trusonafication.essential())
+    Trusonafication trusonafication = callback.fillIdentifier(getBuilder())
       .action(action)
       .resource(resource)
       .build();
@@ -55,6 +66,15 @@ public final class Trusonaficator implements Authenticator {
     catch (TrusonaException ex) {
       TrusonaDebug.getInstance().error("An error occurred while creating a Trusonafication", ex);
       throw new AuthLoginException("An error occurred while creating a Trusonafication", ex);
+    }
+  }
+
+  private IdentifierStep getBuilder() {
+    switch (this.authenticationLevel) {
+      case EXECUTIVE:
+        return Trusonafication.executive();
+      default:
+        return Trusonafication.essential();
     }
   }
 }
