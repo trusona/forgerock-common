@@ -12,20 +12,32 @@ import spock.lang.Unroll
 import static com.trusona.sdk.resources.dto.TrusonaficationStatus.*
 
 class TrusonaficatorSpec extends Specification {
+  static UUID TEST_TRUCODE_ID = UUID.randomUUID()
 
-  Authenticator sut
+  class CallbackStub implements TrusonaCallback {
+    @Override
+    Trusonafication.ActionStep fillIdentifier(Trusonafication.IdentifierStep trusonafication) {
+      return trusonafication.truCode(TEST_TRUCODE_ID)
+    }
+
+    @Override
+    boolean isValid() {
+      return false
+    }
+  }
+
   TrusonaApi mockTrusona
   TrusonaCallback callback
 
   def setup() {
-    sut = new Trusonaficator(mockTrusona = Mock(TrusonaApi), "tacos", "jones")
-    callback = Mock(TrusonaCallback)
+    callback = new CallbackStub()
   }
 
-  def "createTrusonafication should create a Trusonafication"() {
+  def "createTrusonafication should create an ES Trusonafication by default"() {
     given:
+    def sut = new Trusonaficator(mockTrusona = Mock(TrusonaApi), "tacos", "jones")
     def trusonafication = Trusonafication.essential()
-        .truCode(UUID.randomUUID())
+        .truCode(TEST_TRUCODE_ID)
         .action("tacos")
         .resource("jones")
         .build()
@@ -43,16 +55,62 @@ class TrusonaficatorSpec extends Specification {
     def res = sut.createTrusonafication(callback)
 
     then:
-    1 * callback.fillIdentifier(_ as Trusonafication.IdentifierStep) >> Trusonafication.essential()
-        .truCode(trusonafication.getTruCodeId())
+    res == trusonaficationResult.getTrusonaficationId()
+  }
 
+  def "createTrusonafication should create an ES Trusonafication if authentication level is set to ESSENTIAL"() {
+    given:
+    def sut = new Trusonaficator(mockTrusona = Mock(TrusonaApi), "tacos", "jones", Trusonaficator.AuthenticationLevel.ESSENTIAL)
+    def trusonafication = Trusonafication.essential()
+      .truCode(TEST_TRUCODE_ID)
+      .action("tacos")
+      .resource("jones")
+      .build()
+
+    def trusonaficationResult = new TrusonaficationResult(
+      UUID.randomUUID(),
+      IN_PROGRESS,
+      UUID.randomUUID().toString(),
+      null
+    )
+
+    mockTrusona.createTrusonafication(trusonafication) >> trusonaficationResult
+
+    when:
+    def res = sut.createTrusonafication(callback)
+
+    then:
+    res == trusonaficationResult.getTrusonaficationId()
+  }
+
+  def "createTrusonafication should create an EX Trusonafication if authentication level is set to EXECUTIVE"() {
+    given:
+    def sut = new Trusonaficator(mockTrusona = Mock(TrusonaApi), "tacos", "jones", Trusonaficator.AuthenticationLevel.EXECUTIVE)
+    def trusonafication = Trusonafication.executive()
+      .truCode(TEST_TRUCODE_ID)
+      .action("tacos")
+      .resource("jones")
+      .build()
+
+    def trusonaficationResult = new TrusonaficationResult(
+      UUID.randomUUID(),
+      IN_PROGRESS,
+      UUID.randomUUID().toString(),
+      null
+    )
+
+    mockTrusona.createTrusonafication(trusonafication) >> trusonaficationResult
+
+    when:
+    def res = sut.createTrusonafication(callback)
+
+    then:
     res == trusonaficationResult.getTrusonaficationId()
   }
 
   def "createTrusonafication should raise an AuthLoginException when an API error occurs"() {
     given:
-    callback.fillIdentifier(_ as Trusonafication.IdentifierStep) >> Trusonafication.essential()
-        .truCode(UUID.randomUUID())
+    def sut = new Trusonaficator(mockTrusona = Mock(TrusonaApi), "tacos", "jones")
 
     mockTrusona.createTrusonafication(_) >> { throw new TrusonaException("tacos") }
 
@@ -66,8 +124,7 @@ class TrusonaficatorSpec extends Specification {
   @Unroll
   def "createTrusonafication should raise an AuthLoginException when Trusonafication status is #status.inspect()"() {
     given:
-    callback.fillIdentifier(_ as Trusonafication.IdentifierStep) >> Trusonafication.essential()
-        .truCode(UUID.randomUUID())
+    def sut = new Trusonaficator(mockTrusona = Mock(TrusonaApi), "tacos", "jones")
 
     mockTrusona.createTrusonafication(_) >> new TrusonaficationResult(
         UUID.randomUUID(), status, "tacos", null)
@@ -91,6 +148,7 @@ class TrusonaficatorSpec extends Specification {
 
   def "getTrusonaficationResult should return a result"() {
     given:
+    def sut = new Trusonaficator(mockTrusona = Mock(TrusonaApi), "tacos", "jones")
     def trusonaficationResult = new TrusonaficationResult(UUID.randomUUID(), ACCEPTED, "tacos", null)
     mockTrusona.getTrusonaficationResult(trusonaficationResult.trusonaficationId) >> trusonaficationResult
 
@@ -103,6 +161,7 @@ class TrusonaficatorSpec extends Specification {
 
   def "getTrusonaficationResult should raise an AuthLoginException when an API error occurs"() {
     given:
+    def sut = new Trusonaficator(mockTrusona = Mock(TrusonaApi), "tacos", "jones")
     mockTrusona.getTrusonaficationResult(_) >> { throw new TrusonaException("tacos") }
 
     when:
