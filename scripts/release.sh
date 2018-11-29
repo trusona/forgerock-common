@@ -12,7 +12,7 @@ set -e
 c_sign=
 t_sign=
 
-if [ -n $1 ]; then
+if [ -n "$1" ]; then
   c_sign="-S"
   t_sign="-s"
 fi
@@ -47,7 +47,7 @@ if [[ $RESPONSE == y ]] || [[ $RESPONSE == Y ]]; then
 
   sed -e s/${CURRENT_VERSION}/${RELEASE_VERSION}/g -i build.gradle
 
-  git commit -m "release version ${RELEASE_VERSION}" $c_sign build.gradle
+  git commit -q -m "release version ${RELEASE_VERSION}" $c_sign build.gradle
   git tag $t_sign -a v${RELEASE_VERSION} -m "release version ${RELEASE_VERSION}"
 
   git push -q --set-upstream origin release-${RELEASE_VERSION}
@@ -58,8 +58,10 @@ if [[ $RESPONSE == y ]] || [[ $RESPONSE == Y ]]; then
 
   sed -e s/${CURRENT_VERSION}/${NEXT_VERSION}/g -i build.gradle
 
-  git commit -m "Bumping to next snapshot version $NEXT_VERSION" $c_sign build.gradle
+  git commit -q -m "Bumping to next snapshot version $NEXT_VERSION" $c_sign build.gradle
   git push -q --set-upstream origin master
 
-fi
+  echo
+  echo "version ${RELEASE_VERSION} released successfully; bumped master to next snapshot ${NEXT_VERSION}"
 
+fi
