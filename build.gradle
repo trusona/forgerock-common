@@ -45,11 +45,6 @@ dependencies {
 
 assemble {
   dependsOn npm_install
-  dependsOn npm_run_build
-}
-
-build {
-  dependsOn assemble
 }
 
 task version {

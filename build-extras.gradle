@@ -93,14 +93,16 @@ task copy_dist_resource(type: Copy) {
   into "./build/resources/main"
 }
 
-task npm_install(type: Exec) {
-  executable "npm"
-  args "install"
-}
-
 task npm_run_build(type: Exec) {
   executable "npm"
   args "run", "build"
 
   finalizedBy copy_dist_resource
+}
+
+task npm_install(type: Exec) {
+  executable "npm"
+  args "install"
+
+  finalizedBy npm_run_build
 }
