@@ -4,27 +4,33 @@ install: true
 
 cache:
   directories:
+  - $HOME/.gradle
   - $HOME/.m2
 
 before_install:
   - ./scripts/npm-settings.sh
-  - ./scripts/maven-settings.sh
+  - ./scripts/ci-gradle-env.sh
 
 before_deploy:
   - export PATH=$PATH:$HOME/.local/bin
 
 script:
-  - mvn -s data/settings.xml package
+  - ./gradlew build
 
 deploy:
   - provider: script
     skip_cleanup: true
-    script: mvn install deploy -DciBuildNumber=${TRAVIS_BUILD_NUMBER}
+    script: ./gradlew artifactoryPublish
     on:
       branch: master
 
   - provider: script
     skip_cleanup: true
-    script: mvn install deploy -DciBuildNumber=${TRAVIS_BUILD_NUMBER}
+    script: ./gradlew artifactoryPublish
     on:
       tags: true
+
+notifications:
+  slack:
+    rooms:
+    - secure: "xAPebCjkQq59Qo/JN1f4UsTkP2wl7puodzZoer7Hg+8TT/uC33A+/kcBWzeXQcNvG5E6OLMePYJaOb6x9Gp3EOy1U2WxU+J5fLPQ3m6ugTYa1f4G+H9eMojKCOGBiJcntBZBYFlSsyWsQmaCNn9uQlIbH0/eVAQHtflxzgAbD755tpEPPA2+XgZEdGTqsEuGLgz6AIBKNzStA57T7fCm+RW5QqvSFOZsfpBr3LIyOKN5RDHln8CjYVgYntJIjUuCtMOQSmt7MTQPBWp/UvrPiZTs0h+C0a+1Ewi12DfjX55Ez8Uc3mZrmzJivwbGTWU2gKuTzFR3igfuatG4PvH0SF8Nc0Mb0bqIvIQLQz6PPhw+zld8uZtsKHJkn6tyr+cm2BcQKs9JJiaBeFK+k42PFd9bDyamO1vCpb9GVmYEiUAZmt1R5FvD1/BfAjhiak6v9Z5CT0EwINaQIPX3ITUcGr70O1CS09xxIqOOBY+40s+f2AkpG3/XtJ9GZDoFSmEy8mDRSgQ5Ge4oEHE73HEoulWwAH4f2yJC1LvuWB9V4baNefs1C7OHBUoeeYoUFykpKQrzHWPKA/fGELsQ0UCmm1Io+ysxolOTHL5zieYT2KNm6iKN+DHqKQlZwmonUeeFPaUIXk+Vrrd/rf3F/IBPWeI/SppOubW3CHKk7/IGMWY="

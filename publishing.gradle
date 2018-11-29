@@ -1,0 +1,38 @@
+apply plugin: "maven-publish"
+apply plugin: "com.jfrog.artifactory"
+
+artifactory {
+  contextUrl = "https://trusona.jfrog.io/trusona/"
+
+  publish {
+    repository {
+      repoKey = project.version.endsWith("-SNAPSHOT") ? "sdk-snapshots-local" : "sdk-releases-local"
+
+      username = ARTIFACTORY_USERNAME
+      password = ARTIFACTORY_PASSWORD
+      maven = true
+    }
+    defaults {
+      publications "mavenJava"
+      publishArtifacts = true
+      publishPom = true
+    }
+  }
+  resolve {
+    repository {
+      repoKey = project.version.endsWith("-SNAPSHOT") ? "sdk-snapshots-local" : "sdk-releases-local"
+
+      username = ARTIFACTORY_USERNAME
+      password = ARTIFACTORY_PASSWORD
+      maven = true
+    }
+  }
+}
+
+publishing {
+  publications {
+    mavenJava(MavenPublication) {
+      from components.java
+    }
+  }
+}
