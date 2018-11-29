@@ -2,7 +2,8 @@ apply plugin: "maven-publish"
 apply plugin: "com.jfrog.artifactory"
 
 artifactory {
-  contextUrl = CONTEXT_REPO_ROOT
+  contextUrl = "https://trusona.jfrog.io/trusona/"
+
   publish {
     repository {
       repoKey = project.version.endsWith("-SNAPSHOT") ? "sdk-snapshots-local" : "sdk-releases-local"
