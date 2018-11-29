@@ -12,7 +12,7 @@ buildscript {
 }
 
 group "com.trusona.integration"
-version "1.3.0-SNAPSHOT"
+version "1.3.1-SNAPSHOT"
 
 apply plugin: "java"
 apply plugin: "groovy"
