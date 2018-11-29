@@ -43,7 +43,7 @@ dependencies {
   testCompile "junit:junit:4.12"
 }
 
-assemble {
+processResources {
   dependsOn npm_install
 }
 
