@@ -32,7 +32,39 @@ artifactory {
 publishing {
   publications {
     mavenJava(MavenPublication) {
+      pom {
+        name = "Trusona ForgeRock Common"
+        description = "Common code shared between the ForgeRock module and node projects."
+
+        licenses {
+          license {
+            name = "Apache License, Version 2.0"
+            url = "https://www.apache.org/licenses/LICENSE-2.0.txt"
+          }
+        }
+        organization {
+          name = "Trusona Inc"
+          url = "https://trusona.com"
+        }
+        developers {
+          developer {
+            id = "trusona-engineering"
+            name = "Engineering @ Trusona"
+            email = "engineering@trusona.com"
+          }
+        }
+        scm {
+          connection = "scm:git:https://github.com/trusona/forgerock-common.git"
+          developerConnection = "scm:git:https://github.com/trusona/forgerock-common.git"
+          url = "https://github.com/trusona/forgerock-common"
+        }
+      }
+
       from components.java
     }
+  }
+
+  repositories {
+    mavenLocal()
   }
 }
