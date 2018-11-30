@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/trusona/forgerock-common.svg?branch=master)](https://travis-ci.com/trusona/forgerock-common)
+
 Trusona ForgeRock Common
 
 This repository contains code used in the Trusona ForgeRock Node and Modules. You can find those projects at the following locations:
