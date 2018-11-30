@@ -51,7 +51,7 @@ if [[ $RESPONSE == y ]] || [[ $RESPONSE == Y ]]; then
   git tag $t_sign -a v${RELEASE_VERSION} -m "release version ${RELEASE_VERSION}"
 
   git push -q --set-upstream origin release-${RELEASE_VERSION}
-  git push -q --tags -f
+  git push -q --set-upstream origin v${RELEASE_VERSION} -f
 
   git checkout -q master
   NEXT_VERSION="`./bin/semver-tool bump patch $RELEASE_VERSION`-SNAPSHOT"
