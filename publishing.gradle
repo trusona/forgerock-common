@@ -6,7 +6,7 @@ artifactory {
 
   publish {
     repository {
-      repoKey = project.version.endsWith("-SNAPSHOT") ? "sdk-public-releases-local" : "sdk-public-snapshots-local"
+      repoKey = project.version.endsWith("-SNAPSHOT") ? "sdk-public-snapshots-local" : "sdk-public-releases-local"
 
       username = ARTIFACTORY_USERNAME
       password = ARTIFACTORY_PASSWORD
@@ -20,7 +20,7 @@ artifactory {
   }
   resolve {
     repository {
-      repoKey = project.version.endsWith("-SNAPSHOT") ? "sdk-public-releases-local" : "sdk-public-snapshots-local"
+      repoKey = project.version.endsWith("-SNAPSHOT") ? "sdk-public-snapshots-local" : "sdk-public-releases-local"
 
       username = ARTIFACTORY_USERNAME
       password = ARTIFACTORY_PASSWORD
