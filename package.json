@@ -28,15 +28,13 @@
     "mocha": "^5.2.0",
     "sinon": "^5.0.10",
     "webpack": "^4.10.2",
-    "webpack-cli": "^2.1.4",
-    "webpack-dev-server": "^3.1.4"
+    "webpack-cli": "^2.1.4"
   },
   "scripts": {
     "docs": "markdown-pdf README.md -o build/README.pdf",
     "test": "./node_modules/.bin/mocha --compilers js:babel-core/register src/test/js",
     "build": "webpack",
-    "watch": "webpack --watch",
-    "start": "webpack-dev-server --open"
+    "watch": "webpack --watch"
   },
   "repository": {
     "type": "git",
