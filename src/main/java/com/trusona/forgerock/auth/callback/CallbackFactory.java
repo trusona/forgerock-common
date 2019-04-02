@@ -3,14 +3,14 @@ package com.trusona.forgerock.auth.callback;
 import com.sun.identity.authentication.callbacks.ScriptTextOutputCallback;
 import com.sun.identity.authentication.spi.RedirectCallback;
 import com.trusona.forgerock.auth.TrusonaDebug;
-import okio.Okio;
-import org.apache.commons.lang3.StringUtils;
-
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Optional;
+import okio.Okio;
+import org.apache.commons.lang3.StringUtils;
 
 public class CallbackFactory {
+
   private static final String JS_RESOURCE = "main.bundle.js";
   private static final String HTTP_GET = "GET";
   private static final String DEFAULT_DEEPLINK_URL = "https://trusona-app.net/idp";
@@ -38,7 +38,8 @@ public class CallbackFactory {
     }
 
     scriptBuilder.append("\n");
-    scriptBuilder.append(String.format("var app = new TrusonaFR(%s, '%s', '%s');%n", webSdkConfig, deeplinkUrl, trucodeElementId));
+    scriptBuilder
+      .append(String.format("var app = new TrusonaFR(%s, '%s', '%s');%n", webSdkConfig, deeplinkUrl, trucodeElementId));
     scriptBuilder.append(command);
 
     return new ScriptTextOutputCallback(scriptBuilder.toString());
@@ -53,4 +54,3 @@ public class CallbackFactory {
       HTTP_GET);
   }
 }
-

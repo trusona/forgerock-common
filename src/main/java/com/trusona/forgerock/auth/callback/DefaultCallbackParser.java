@@ -2,19 +2,15 @@ package com.trusona.forgerock.auth.callback;
 
 
 import com.sun.identity.authentication.callbacks.HiddenValueCallback;
-import com.sun.identity.authentication.callbacks.ScriptTextOutputCallback;
-import com.sun.identity.authentication.spi.RedirectCallback;
 import com.trusona.forgerock.auth.TrusonaDebug;
-import org.apache.commons.lang3.StringUtils;
-
+import java.util.Optional;
+import java.util.UUID;
 import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.ChoiceCallback;
 import javax.security.auth.callback.NameCallback;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.UUID;
 
 public class DefaultCallbackParser implements CallbackParser {
+
   private static final String USER_IDENTIFIER = "user_identifier";
   private static final String DEVICE_IDENTIFIER = "device_identifier";
   private static final String TRUCODE_ID = "trucode_id";
@@ -29,7 +25,8 @@ public class DefaultCallbackParser implements CallbackParser {
 
       String identifierType = typeCallback.getChoices()[typeCallback.getSelectedIndexes()[0]];
 
-      TrusonaDebug.getInstance().message(String.format("Got an identifier of %s and a type of %s", identifierCallback.getName(), identifierType));
+      TrusonaDebug.getInstance()
+        .message(String.format("Got an identifier of %s and a type of %s", identifierCallback.getName(), identifierType));
 
       switch (identifierType) {
         case USER_IDENTIFIER:

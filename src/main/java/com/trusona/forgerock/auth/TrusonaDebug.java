@@ -3,6 +3,7 @@ package com.trusona.forgerock.auth;
 import com.sun.identity.shared.debug.Debug;
 
 public class TrusonaDebug {
+
   private static final Debug DEBUG;
 
   static {
