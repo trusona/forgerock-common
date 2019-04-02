@@ -1,3 +1,12 @@
+apply plugin: "java"
+apply plugin: "groovy"
+apply plugin: "idea"
+apply plugin: "maven"
+apply plugin: "jacoco"
+apply plugin: "com.moowork.node"
+apply from: "build-extras.gradle"
+apply from: "publishing.gradle"
+
 buildscript {
   repositories {
     google()
@@ -14,30 +23,22 @@ buildscript {
 }
 
 group "com.trusona.integration"
-version "1.3.3-SNAPSHOT"
+version "1.4.0-SNAPSHOT"
 
-apply plugin: "java"
-apply plugin: "groovy"
-apply plugin: "idea"
-apply plugin: "maven"
-apply plugin: "jacoco"
-apply plugin: "com.moowork.node"
-apply from: "publishing.gradle"
-apply from: "build-extras.gradle"
 
 dependencies {
-  compile "com.trusona:trusona-sdk:3.5.2"
+  compile "com.trusona:trusona-sdk:3.6.0"
   compile "com.trusona.libs:trusona-client-java-sdk:2.4.1" // legacy SDK - SAD! :(
 
   compile "org.apache.commons:commons-lang3:${commonsLang3Version}"
 
-  compileOnly "org.forgerock.am:openam-shared:${forgerockVersion}"
   compileOnly "org.forgerock.am:openam-core:${forgerockVersion}"
-
-  testCompile "org.forgerock.am:openam-shared:${forgerockVersion}"
   testCompile "org.forgerock.am:openam-core:${forgerockVersion}"
 
-  testCompile "org.spockframework:spock-core:1.1-groovy-2.4"
+  testCompile "org.forgerock.am:openam-shared:${forgerockVersion}"
+  testCompile "org.forgerock.am:openam-sdk:${forgerockVersion}"
+
+  testCompile "org.spockframework:spock-core:1.3-groovy-2.5"
   testCompile "org.codehaus.groovy:groovy:2.5.4"
   testCompile "org.slf4j:slf4j-simple:1.7.25"
   testCompile "org.objenesis:objenesis:3.0.1"
