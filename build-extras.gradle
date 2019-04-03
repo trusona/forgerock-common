@@ -2,10 +2,6 @@
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-ext {
-  forgerockVersion = "6.5.0.1"
-}
-
 repositories {
   google()
   mavenCentral()

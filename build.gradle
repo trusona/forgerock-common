@@ -1,5 +1,21 @@
+buildscript {
+  repositories {
+    google()
+    mavenCentral()
+    jcenter()
+    maven { url "https://plugins.gradle.org/m2/" }
+  }
+
+  dependencies {
+    classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.8.1"
+    classpath "com.moowork.gradle:gradle-node-plugin:1.2.0"
+  }
+}
+
 group "com.trusona.integration"
 version "1.4.0-SNAPSHOT"
+
+ext.forgerockVersion = "6.5.0.1"
 
 apply plugin: "java"
 apply plugin: "groovy"
@@ -9,21 +25,6 @@ apply plugin: "jacoco"
 apply plugin: "com.moowork.node"
 apply from: "build-extras.gradle"
 apply from: "publishing.gradle"
-
-buildscript {
-  repositories {
-    google()
-    mavenCentral()
-    jcenter()
-    mavenLocal()
-    maven { url "https://plugins.gradle.org/m2/" }
-  }
-
-  dependencies {
-    classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.8.1"
-    classpath "com.moowork.gradle:gradle-node-plugin:1.2.0"
-  }
-}
 
 dependencies {
   compile "com.trusona:trusona-sdk:3.6.0"
