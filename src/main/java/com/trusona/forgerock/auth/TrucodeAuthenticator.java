@@ -28,10 +28,8 @@ public class TrucodeAuthenticator {
                                                                    .resource(resource)
                                                                    .build());
 
-    UUID trusonaficationId = result.getTrusonaficationId();
-
     if (TrusonaficationStatus.IN_PROGRESS.equals(result.getStatus())) {
-      result = trusona.getTrusonaficationResult(trusonaficationId);
+      result = trusona.getTrusonaficationResult(result.getTrusonaficationId());
       TrusonaDebug.getInstance().message("TrusonaficationResult => {}", result);
 
       if (result.isSuccessful()) {
