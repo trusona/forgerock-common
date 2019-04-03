@@ -1,3 +1,6 @@
+group "com.trusona.integration"
+version "1.4.0-SNAPSHOT"
+
 apply plugin: "java"
 apply plugin: "groovy"
 apply plugin: "idea"
@@ -21,10 +24,6 @@ buildscript {
     classpath "com.moowork.gradle:gradle-node-plugin:1.2.0"
   }
 }
-
-group "com.trusona.integration"
-version "1.4.0-SNAPSHOT"
-
 
 dependencies {
   compile "com.trusona:trusona-sdk:3.6.0"
