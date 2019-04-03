@@ -30,8 +30,6 @@ dependencies {
   compile "com.trusona:trusona-sdk:3.6.0"
   compile "com.trusona.libs:trusona-client-java-sdk:2.4.1" // legacy SDK - SAD! :(
 
-  compile "org.apache.commons:commons-lang3:${commonsLang3Version}"
-
   compileOnly "org.forgerock.am:openam-core:${forgerockVersion}"
   testCompile "org.forgerock.am:openam-core:${forgerockVersion}"
 
