@@ -13,7 +13,7 @@ buildscript {
 }
 
 group "com.trusona.integration"
-version "2.0.1-SNAPSHOT"
+version "2.0.2-SNAPSHOT"
 
 ext.forgerockVersion = "6.5.0.1"
 
