@@ -12,4 +12,4 @@ This repository contains code used in the Trusona ForgeRock Node and Modules. Yo
 
 #### Looking for 5.5 Support ?
 
-Checkout the `master-5.5` branch.
+Checkout the `master-5.5_6.0` [branch](https://github.com/trusona/forgerock-common/tree/master-5.5_6.0).
