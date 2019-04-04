@@ -16,6 +16,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 public class DefaultPrincipalMapper implements PrincipalMapper {
+
   private static final String TRUSONA_APP_PREFIX = "trusonaId:";
   private static final String UID = "uid";
   private static final String ID = "id";
@@ -63,6 +64,7 @@ public class DefaultPrincipalMapper implements PrincipalMapper {
 
     if (identity != null) {
       String name = identity.getName();
+
       Stream<Optional<String>> stream = Stream.<Optional<String>>builder()
         .add(getIdentityField(name, UID))
         .add(getIdentityField(name, ID))
@@ -74,7 +76,8 @@ public class DefaultPrincipalMapper implements PrincipalMapper {
         .orElse(name);
 
       authPrincipal = new AuthPrincipal(identityName);
-    } else {
+    }
+    else {
       authPrincipal = new AuthPrincipal(subjects.get(0));
     }
 

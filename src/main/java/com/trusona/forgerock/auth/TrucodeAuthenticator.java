@@ -6,12 +6,12 @@ import com.trusona.sdk.resources.dto.Trusonafication;
 import com.trusona.sdk.resources.dto.TrusonaficationResult;
 import com.trusona.sdk.resources.dto.TrusonaficationStatus;
 import com.trusona.sdk.resources.exception.TrusonaException;
-
 import java.security.Principal;
 import java.util.Optional;
 import java.util.UUID;
 
 public class TrucodeAuthenticator {
+
   private TrusonaApi trusona;
 
   public TrucodeAuthenticator(TrusonaApi trusona) {
@@ -23,15 +23,13 @@ public class TrucodeAuthenticator {
     Principal principal = null;
 
     TrusonaficationResult result = trusona.createTrusonafication(Trusonafication.essential()
-      .truCode(trucodeId)
-      .action(action)
-      .resource(resource)
-      .build());
-
-    UUID trusonaficationId = result.getTrusonaficationId();
+                                                                   .truCode(trucodeId)
+                                                                   .action(action)
+                                                                   .resource(resource)
+                                                                   .build());
 
     if (TrusonaficationStatus.IN_PROGRESS.equals(result.getStatus())) {
-      result = trusona.getTrusonaficationResult(trusonaficationId);
+      result = trusona.getTrusonaficationResult(result.getTrusonaficationId());
       TrusonaDebug.getInstance().message("TrusonaficationResult => {}", result);
 
       if (result.isSuccessful()) {

@@ -4,6 +4,7 @@ import com.trusona.sdk.resources.dto.Trusonafication;
 import org.apache.commons.lang3.StringUtils;
 
 public class UserIdentifierCallback implements TrusonaCallback {
+
   private String userIdentifier;
 
   public UserIdentifierCallback(String userIdentifier) {

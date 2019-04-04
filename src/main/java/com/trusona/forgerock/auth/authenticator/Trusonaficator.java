@@ -70,11 +70,11 @@ public final class Trusonaficator implements Authenticator {
   }
 
   private IdentifierStep getBuilder() {
-    switch (this.authenticationLevel) {
-      case EXECUTIVE:
-        return Trusonafication.executive();
-      default:
-        return Trusonafication.essential();
+    if (authenticationLevel == AuthenticationLevel.EXECUTIVE) {
+      return Trusonafication.executive();
+    }
+    else {
+      return Trusonafication.essential();
     }
   }
 }

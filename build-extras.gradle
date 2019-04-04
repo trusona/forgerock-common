@@ -2,19 +2,10 @@
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-ext {
-  commonsLang3Version = "3.8.1"
-  forgerockVersion = "5.5.1"
-  retrofit2Version = "2.5.0"
-  jacksonVersion = "2.9.7"
-  okHttpVersion = "3.12.0"
-}
-
 repositories {
   google()
   mavenCentral()
   jcenter()
-  mavenLocal()
 
   maven { 
     credentials {
@@ -65,23 +56,25 @@ configurations.all {
 
     def set = [] as Set
 
-    set << "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}"
-    set << "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
-    set << "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
+    set << "com.fasterxml.jackson.core:jackson-annotations:2.9.8"
+    set << "com.fasterxml.jackson.core:jackson-databind:2.9.8"
+    set << "com.fasterxml.jackson.core:jackson-core:2.9.8"
 
-    set << "org.apache.commons:commons-lang3:${commonsLang3Version}"
-    set << "com.squareup.retrofit2:retrofit:${retrofit2Version}"
-    set << "com.squareup.okhttp3:okhttp:${okHttpVersion}"
-
-    set << "org.forgerock.commons.guava:forgerock-guava-hash:18.+"
-    set << "commons-collections:commons-collections:3.+"
-    set << "org.forgerock.commons:forgerock-util:22.+"
-    set << "commons-fileupload:commons-fileupload:1.+"
-    set << "commons-logging:commons-logging:1.+"
-    set << "commons-codec:commons-codec:1.+"
-    set << "commons-lang:commons-lang:2.+"
-    set << "commons-io:commons-io:2.+"
-    set << "org.slf4j:slf4j-api:1.7.+"
+    set << "commons-collections:commons-collections:3.2.2"
+    set << "commons-fileupload:commons-fileupload:1.4"
+    set << "io.dropwizard.metrics:metrics-core:4.0.5"
+    set << "org.apache.commons:commons-lang3:3.8.1"
+    set << "com.squareup.retrofit2:retrofit:2.5.0"
+    set << "com.google.code.findbugs:jsr305:3.0.2"
+    set << "commons-logging:commons-logging:1.2"
+    set << "com.squareup.okhttp3:okhttp:3.14.0"
+    set << "commons-codec:commons-codec:1.12"
+    set << "org.codehaus.groovy:groovy:2.5.6"
+    set << "com.google.guava:guava:26.0-jre"
+    set << "commons-lang:commons-lang:2.6"
+    set << "org.slf4j:slf4j-api:1.7.25"
+    set << "commons-io:commons-io:2.6"
+    set << "com.sleepycat:je:18.3.12"
 
     force set.toArray()
     forcedModules = set
