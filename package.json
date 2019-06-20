@@ -4,29 +4,30 @@
   "description": "Trusona Forgerock Common is shared between Trusona ForgeRock AM Module and Node that allow you to authenticate users with Trusona.",
   "dependencies": {
     "@trusona/deeplink": "1.3.1",
-    "trusona-trucode": "~0.1.1",
     "babel-polyfill": "^6.26.0",
-    "jquery": "^3.3.1"
+    "jquery": "^3.4.1",
+    "trusona-trucode": "^1.0.0"
   },
   "devDependencies": {
+    "argparse": "^1.0.10",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.7.0",
     "clean-webpack-plugin": "^0.1.19",
-    "eslint": "^4.19.1",
+    "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-config-standard": "^11.0.0",
-    "eslint-loader": "^2.0.0",
-    "eslint-plugin-import": "^2.12.0",
+    "eslint-loader": "^2.1.2",
+    "eslint-plugin-import": "^2.17.3",
     "eslint-plugin-promise": "^3.8.0",
-    "eslint-plugin-react": "^7.8.2",
+    "eslint-plugin-react": "^7.13.0",
     "html-webpack-plugin": "^3.2.0",
-    "jshint": "^2.9.5",
-    "lodash": ">=4.17.11",
+    "jshint": "^2.10.2",
+    "lodash": "^4.17.11",
     "markdown-pdf": "^9.0.0",
-    "webpack": "^4.10.2",
-    "webpack-cli": "^3.3.0"
+    "webpack": "^4.34.0",
+    "webpack-cli": "^3.3.4"
   },
   "scripts": {
     "docs": "markdown-pdf README.md -o build/README.pdf",
