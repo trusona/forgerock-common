@@ -52,7 +52,7 @@ if [[ $RESPONSE == y ]] || [[ $RESPONSE == Y ]]; then
 
   NEXT_VERSION="`./bin/semver-tool bump patch $RELEASE_VERSION`-SNAPSHOT"
 
-  sed -e s/${CURRENT_VERSION}/${NEXT_VERSION}/g -i '' build.gradle
+  sed -e s/${RELEASE_VERSION}/${NEXT_VERSION}/g -i '' build.gradle
 
   git commit -m "Bumping to next snapshot version $NEXT_VERSION" $c_sign build.gradle
   git push --set-upstream origin master
