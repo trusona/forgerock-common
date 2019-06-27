@@ -15,7 +15,7 @@ buildscript {
 group "com.trusona.integration"
 version "2.0.3-SNAPSHOT"
 
-ext.forgerockVersion = "6.5.0.1"
+ext.forgerockVersion = "6.5.2"
 
 apply plugin: "java"
 apply plugin: "groovy"
@@ -27,7 +27,7 @@ apply from: "build-extras.gradle"
 apply from: "publishing.gradle"
 
 dependencies {
-  compile "com.trusona:trusona-sdk:3.6.0"
+  compile "com.trusona:trusona-sdk:3.6.1"
   compile "com.trusona.libs:trusona-client-java-sdk:2.4.1" // legacy SDK - SAD! :(
 
   compileOnly "org.forgerock.am:openam-core:${forgerockVersion}"
