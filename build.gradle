@@ -7,7 +7,7 @@ buildscript {
   }
 
   dependencies {
-    classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.8.1"
+    classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.15.1"
     classpath "com.moowork.gradle:gradle-node-plugin:1.2.0"
   }
 }
