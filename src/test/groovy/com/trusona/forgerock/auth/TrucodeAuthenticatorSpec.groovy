@@ -35,8 +35,8 @@ class TrucodeAuthenticatorSpec extends Specification {
       .resource(resource)
       .build()
 
-    mockTrusona.createTrusonafication(expectedTrusonafication) >> new TrusonaficationResult(trusonaficationId, IN_PROGRESS, null, null);
-    mockTrusona.getTrusonaficationResult(trusonaficationId) >> new TrusonaficationResult(trusonaficationId, ACCEPTED, "foobar", null)
+    mockTrusona.createTrusonafication(expectedTrusonafication) >> new TrusonaficationResult(trusonaficationId, IN_PROGRESS, null, null, null, null,null,null,null)
+    mockTrusona.getTrusonaficationResult(trusonaficationId) >> new TrusonaficationResult(trusonaficationId, ACCEPTED, "foobar", null, null,null,null,null,null)
 
     when:
     def res = sut.authenticate(trucodeId, action, resource)
@@ -59,8 +59,8 @@ class TrucodeAuthenticatorSpec extends Specification {
       .resource(resource)
       .build()
 
-    mockTrusona.createTrusonafication(expectedTrusonafication) >> new TrusonaficationResult(trusonaficationId, IN_PROGRESS, null, null);
-    mockTrusona.getTrusonaficationResult(trusonaficationId) >> new TrusonaficationResult(trusonaficationId, status, "foobar", null)
+    mockTrusona.createTrusonafication(expectedTrusonafication) >> new TrusonaficationResult(trusonaficationId, IN_PROGRESS, null, null,null,null,null,null,null)
+    mockTrusona.getTrusonaficationResult(trusonaficationId) >> new TrusonaficationResult(trusonaficationId, status, "foobar", null,null,null,null,null,null)
 
     when:
     def res = sut.authenticate(trucodeId, action, resource)
@@ -85,7 +85,7 @@ class TrucodeAuthenticatorSpec extends Specification {
       .resource(resource)
       .build()
 
-    mockTrusona.createTrusonafication(expectedTrusonafication) >> new TrusonaficationResult(trusonaficationId, INVALID, null, null);
+    mockTrusona.createTrusonafication(expectedTrusonafication) >> new TrusonaficationResult(trusonaficationId, INVALID, null, null,null,null,null,null,null)
 
     when:
     def res = sut.authenticate(trucodeId, action, resource)

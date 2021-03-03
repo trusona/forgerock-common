@@ -37,16 +37,16 @@ class TrusonaficatorSpec extends Specification {
     given:
     def sut = new Trusonaficator(mockTrusona = Mock(TrusonaApi), "tacos", "jones")
     def trusonafication = Trusonafication.essential()
-        .truCode(TEST_TRUCODE_ID)
-        .action("tacos")
-        .resource("jones")
-        .build()
+      .truCode(TEST_TRUCODE_ID)
+      .action("tacos")
+      .resource("jones")
+      .build()
 
     def trusonaficationResult = new TrusonaficationResult(
-        UUID.randomUUID(),
-        IN_PROGRESS,
-        UUID.randomUUID().toString(),
-        null
+      UUID.randomUUID(),
+      IN_PROGRESS,
+      UUID.randomUUID() as String,
+      null, null, null, null, null, null
     )
 
     mockTrusona.createTrusonafication(trusonafication) >> trusonaficationResult
@@ -70,8 +70,8 @@ class TrusonaficatorSpec extends Specification {
     def trusonaficationResult = new TrusonaficationResult(
       UUID.randomUUID(),
       IN_PROGRESS,
-      UUID.randomUUID().toString(),
-      null
+      UUID.randomUUID() as String,
+      null, null, null, null, null, null
     )
 
     mockTrusona.createTrusonafication(trusonafication) >> trusonaficationResult
@@ -95,8 +95,8 @@ class TrusonaficatorSpec extends Specification {
     def trusonaficationResult = new TrusonaficationResult(
       UUID.randomUUID(),
       IN_PROGRESS,
-      UUID.randomUUID().toString(),
-      null
+      UUID.randomUUID() as String,
+      null, null, null, null, null, null
     )
 
     mockTrusona.createTrusonafication(trusonafication) >> trusonaficationResult
@@ -127,7 +127,7 @@ class TrusonaficatorSpec extends Specification {
     def sut = new Trusonaficator(mockTrusona = Mock(TrusonaApi), "tacos", "jones")
 
     mockTrusona.createTrusonafication(_) >> new TrusonaficationResult(
-        UUID.randomUUID(), status, "tacos", null)
+      UUID.randomUUID(), status, "tacos", null, null, null, null, null, null)
 
     when:
     sut.createTrusonafication(callback)
@@ -137,19 +137,19 @@ class TrusonaficatorSpec extends Specification {
 
     where:
     status << [
-        ACCEPTED,
-        ACCEPTED_AT_HIGHER_LEVEL,
-        ACCEPTED_AT_LOWER_LEVEL,
-        EXPIRED,
-        INVALID,
-        REJECTED
+      ACCEPTED,
+      ACCEPTED_AT_HIGHER_LEVEL,
+      ACCEPTED_AT_LOWER_LEVEL,
+      EXPIRED,
+      INVALID,
+      REJECTED
     ]
   }
 
   def "getTrusonaficationResult should return a result"() {
     given:
     def sut = new Trusonaficator(mockTrusona = Mock(TrusonaApi), "tacos", "jones")
-    def trusonaficationResult = new TrusonaficationResult(UUID.randomUUID(), ACCEPTED, "tacos", null)
+    def trusonaficationResult = new TrusonaficationResult(UUID.randomUUID(), ACCEPTED, "tacos", null,null,null,null,null,null)
     mockTrusona.getTrusonaficationResult(trusonaficationResult.trusonaficationId) >> trusonaficationResult
 
     when:

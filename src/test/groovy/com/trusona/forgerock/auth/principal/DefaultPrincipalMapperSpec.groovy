@@ -55,7 +55,7 @@ class DefaultPrincipalMapperSpec extends Specification {
 
   def "mapPrincipal should return an empty optional when the trusonafication is not successful"() {
     given:
-    def trusoResult = new TrusonaficationResult(UUID.randomUUID(), TrusonaficationStatus.ACCEPTED, "jones", farFuture) {
+    def trusoResult = new TrusonaficationResult(UUID.randomUUID(), TrusonaficationStatus.ACCEPTED, "jones", farFuture, null, null, null, null, null) {
       @Override
       boolean isSuccessful() {
         false
@@ -71,7 +71,7 @@ class DefaultPrincipalMapperSpec extends Specification {
 
   def "mapPrincipal should return an empty optional when the user identifier is null"() {
     given:
-    def trusoResult = new TrusonaficationResult(UUID.randomUUID(), TrusonaficationStatus.ACCEPTED, null, farFuture) {
+    def trusoResult = new TrusonaficationResult(UUID.randomUUID(), TrusonaficationStatus.ACCEPTED, null, farFuture, null, null, null, null, null) {
       @Override
       boolean isSuccessful() {
         true
@@ -88,7 +88,7 @@ class DefaultPrincipalMapperSpec extends Specification {
   def "mapPrincipal should return an empty optional when the trusonafication expired more than a minute ago"() {
     given:
     def aWhileAgo = new Date(System.currentTimeMillis() - 60 * 60 * 1000)
-    def trusoResult = new TrusonaficationResult(UUID.randomUUID(), TrusonaficationStatus.ACCEPTED, "jones", aWhileAgo)
+    def trusoResult = new TrusonaficationResult(UUID.randomUUID(), TrusonaficationStatus.ACCEPTED, "jones", aWhileAgo, null, null, null, null, null)
 
     when:
     def res = sut.mapPrincipal(trusoResult)
@@ -167,7 +167,7 @@ class DefaultPrincipalMapperSpec extends Specification {
 
   def "mapPrincipal should return the userIdentifier"() {
     given:
-    def trusoResult = new TrusonaficationResult(UUID.randomUUID(), TrusonaficationStatus.ACCEPTED, "jones", new Date())
+    def trusoResult = new TrusonaficationResult(UUID.randomUUID(), TrusonaficationStatus.ACCEPTED, "jones", new Date(), null, null, null, null, null)
 
     when:
     def res = sut.mapPrincipal(trusoResult)
