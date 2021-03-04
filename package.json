@@ -6,7 +6,7 @@
     "@trusona/deeplink": "1.3.1",
     "babel-polyfill": "^6.26.0",
     "fix": "0.0.6",
-    "jquery": "^3.5.0",
+    "jquery": "^3.6.0",
     "trusona-trucode": "^1.0.6"
   },
   "devDependencies": {
@@ -19,13 +19,13 @@
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-config-standard": "^11.0.0",
-    "eslint-loader": "^2.1.2",
-    "eslint-plugin-import": "^2.17.3",
+    "eslint-loader": "^2.2.1",
+    "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-promise": "^3.8.0",
-    "eslint-plugin-react": "^7.13.0",
+    "eslint-plugin-react": "^7.22.0",
     "html-webpack-plugin": "^3.2.0",
-    "jshint": "^2.10.2",
-    "lodash": "^4.17.19",
+    "jshint": "^2.12.0",
+    "lodash": "^4.17.21",
     "webpack": "^5.24.3",
     "webpack-cli": "^4.5.0"
   },
