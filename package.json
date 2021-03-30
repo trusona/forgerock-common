@@ -10,16 +10,16 @@
     "trusona-trucode": "^1.0.6"
   },
   "devDependencies": {
-    "@babel/cli": "^7.13.10",
-    "@babel/core": "^7.13.10",
-    "@babel/eslint-parser": "^7.13.10",
-    "@babel/node": "^7.13.12",
+    "@babel/cli": "^7.13.14",
+    "@babel/core": "^7.13.14",
+    "@babel/eslint-parser": "^7.13.14",
+    "@babel/node": "^7.13.13",
     "@babel/preset-env": "^7.13.12",
-    "@babel/register": "^7.13.8",
+    "@babel/register": "^7.13.14",
     "argparse": "^2.0.1",
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^3.0.0",
-    "eslint": "^7.22.0",
+    "eslint": "^7.23.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-standard": "^16.0.2",
     "eslint-loader": "^4.0.2",
@@ -32,7 +32,7 @@
     "lodash": "^4.17.21",
     "underscore.string": ">=3.3.5",
     "webpack": "^5.28.0",
-    "webpack-cli": "^4.5.0"
+    "webpack-cli": "^4.6.0"
   },
   "scripts": {
     "test": "echo 'No JS tests are defined for this project' && exit 1",
