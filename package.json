@@ -7,7 +7,7 @@
     "babel-polyfill": "^6.26.0",
     "fix": "0.0.6",
     "jquery": "^3.6.0",
-    "trusona-trucode": "^1.0.8"
+    "trusona-trucode": "^1.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.5",
