@@ -31,7 +31,7 @@
     "jshint": "^2.13.0",
     "lodash": "^4.17.21",
     "underscore.string": ">=3.3.5",
-    "webpack": "^5.41.1",
+    "webpack": "^5.47.1",
     "webpack-cli": "^4.7.2"
   },
   "scripts": {
