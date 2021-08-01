@@ -35,7 +35,7 @@ dependencies {
 
   testCompile "org.spockframework:spock-core:2.0-groovy-3.0"
   testCompile "org.codehaus.groovy:groovy:3.0.8"
-  testCompile "org.slf4j:slf4j-simple:1.7.31"
+  testCompile "org.slf4j:slf4j-simple:1.7.32"
   testCompile "org.objenesis:objenesis:3.2"
 }
 
