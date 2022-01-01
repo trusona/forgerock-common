@@ -15,7 +15,7 @@
     "@babel/eslint-parser": "^7.16.5",
     "@babel/node": "^7.16.7",
     "@babel/preset-env": "^7.16.4",
-    "@babel/register": "^7.16.5",
+    "@babel/register": "^7.16.7",
     "argparse": "^2.0.1",
     "babel-loader": "^8.2.3",
     "clean-webpack-plugin": "^4.0.0",
