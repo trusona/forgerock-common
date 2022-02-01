@@ -32,7 +32,7 @@
     "lodash": "^4.17.21",
     "underscore.string": ">=3.3.5",
     "webpack": "^5.65.0",
-    "webpack-cli": "^4.9.1"
+    "webpack-cli": "^4.9.2"
   },
   "scripts": {
     "test": "echo 'No JS tests are defined for this project' && exit 1",
