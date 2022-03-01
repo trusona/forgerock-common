@@ -10,7 +10,7 @@
     "trusona-trucode": "^1.1.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.16.7",
+    "@babel/cli": "^7.17.6",
     "@babel/core": "^7.17.5",
     "@babel/eslint-parser": "^7.16.5",
     "@babel/node": "^7.16.8",
