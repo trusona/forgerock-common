@@ -42,6 +42,8 @@ compileJava {
 }
 
 test {
+  useJUnitPlatform()
+
   testLogging {
     showStandardStreams = true
     events "PASSED", "FAILED", "SKIPPED"
@@ -53,7 +55,8 @@ test {
 configurations.all {
   resolutionStrategy {
     preferProjectModules()
-  }}
+  }
+}
 
 task copy_dist_resource(type: Copy) {
   from "./dist"
