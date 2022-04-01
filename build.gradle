@@ -34,7 +34,7 @@ dependencies {
   testCompile "org.forgerock.am:openam-core:${forgerockVersion}"
 
   testCompile "org.spockframework:spock-core:2.1-groovy-3.0"
-  testCompile "org.codehaus.groovy:groovy:3.0.9"
+  testCompile "org.codehaus.groovy:groovy:3.0.10"
   testCompile "org.slf4j:slf4j-simple:1.7.36"
   testCompile "org.objenesis:objenesis:3.2"
 }
