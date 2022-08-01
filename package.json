@@ -28,7 +28,7 @@
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.30.1",
     "html-webpack-plugin": "^5.5.0",
-    "jshint": "^2.13.4",
+    "jshint": "^2.13.5",
     "lodash": "^4.17.21",
     "underscore.string": ">=3.3.6",
     "webpack": "^5.73.0",
