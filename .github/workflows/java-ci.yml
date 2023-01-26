@@ -24,7 +24,7 @@ jobs:
 
   success_notification:
     uses: ./.github/workflows/workflow_slack-notification.yml
-    needs: [ test, static ]
+    needs: [ test ]
     if: ${{ success() }}
     secrets:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -35,7 +35,7 @@ jobs:
 
   failure_notification:
     uses: ./.github/workflows/workflow_slack-notification.yml
-    needs: [ test, static ]
+    needs: [ test ]
     if: ${{ failure() }}
     secrets:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
