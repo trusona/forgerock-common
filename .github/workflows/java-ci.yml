@@ -1,0 +1,45 @@
+name: Java CI
+on:
+  pull_request:
+    branches: [ master ]
+  push:
+    branches: [ '*' ]
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  id-token: write
+  contents: read
+jobs:
+  test:
+    uses: ./.github/workflows/workflow_java-specs.yml
+    secrets:
+      FORGEROCK_MAVEN_USERNAME: ${{ secrets.FORGEROCK_MAVEN_USERNAME }}
+      FORGEROCK_MAVEN_PASSWORD: ${{ secrets.FORGEROCK_MAVEN_PASSWORD }}
+      ARTIFACTORY_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
+      ARTIFACTORY_PASSWORD: ${{ secrets.ARTIFACTORY_PASSWORD }}
+      CONTEXT_REPO_ROOT: ${{ secrets.CONTEXT_REPO_ROOT }}
+      SNAPSHOTS_REPO: ${{ secrets.SNAPSHOTS_REPO }}
+      RELEASES_REPO: ${{ secrets.RELEASES_REPO }}
+
+  success_notification:
+    uses: ./.github/workflows/workflow_slack-notification.yml
+    needs: [ test, static ]
+    if: ${{ success() }}
+    secrets:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    with:
+      DISPLAYED_USERNAME: Forgerock Common SDK CI
+      MESSAGE: 'CI run completed successfully! :tada: :tada:'
+      COLOR: good
+
+  failure_notification:
+    uses: ./.github/workflows/workflow_slack-notification.yml
+    needs: [ test, static ]
+    if: ${{ failure() }}
+    secrets:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    with:
+      DISPLAYED_USERNAME: Forgerock Common SDK CI
+      MESSAGE: 'CI run failed! Shame! Shame! :sadpanda: :sadpanda:'
+      COLOR: danger
